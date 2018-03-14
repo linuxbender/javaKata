@@ -1,0 +1,2 @@
+# javaKata
+java kata projects
