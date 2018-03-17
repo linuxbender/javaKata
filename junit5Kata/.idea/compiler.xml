@@ -9,7 +9,7 @@
         <module name="service21" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
+    <bytecodeTargetLevel>
       <module name="demo21" target="1.8" />
       <module name="service21" target="1.8" />
     </bytecodeTargetLevel>
