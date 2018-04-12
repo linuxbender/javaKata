@@ -1,17 +1,18 @@
 package ch.springBootRest.ch.springBootRest.wildfly.api.v1.personInfo;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/personinfo")
+@CrossOrigin(origins = "*")
 public class PersonInfoController {
 
     private final IPersonInfoService personInfoService;
 
     public PersonInfoController(IPersonInfoService personInfoService) {
+        if (personInfoService == null) {
+            throw new NullPointerException("personInfoService");
+        }
         this.personInfoService = personInfoService;
     }
 
@@ -20,7 +21,7 @@ public class PersonInfoController {
         return String.format("Hi, %s", personName);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/")
+    @RequestMapping(method = RequestMethod.GET)
     public String actionFullPersonName() {
         return this.personInfoService.getPersonName();
     }
