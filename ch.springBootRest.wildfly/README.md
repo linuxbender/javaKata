@@ -6,7 +6,7 @@ This is a basic EE setup to run SpringBoot without WildFly or with WildFly /JBos
 ```
 http://localhost:8080/api/v1/personinfo
 http://localhost:8080/api/v1/personinfo/{personName}
-http://localhost:8080/api/v1/personinfo/current-person-states
+http://localhost:8080/api/v1/personinfo/current-person-state
 http://localhost:8080/api/v1/personinfo/person-states
 http://localhost:8080/api/v1/personinfo/is-state-count-valid
 ```

@@ -35,7 +35,7 @@ public class PersonInfoController {
         return this.personInfoService.getPersonStateCode();
     }
 
-    @RequestMapping(method = RequestMethod.GET,value = "/current-person-states")
+    @RequestMapping(method = RequestMethod.GET,value = "/current-person-state")
     public String actionCurrentPersonState() {
         return this.personInfoService.isCurrentPersonActiv();
     }
