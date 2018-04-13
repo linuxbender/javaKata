@@ -18,7 +18,7 @@ public class PersonInfoProviderImpl implements PersonInfoProvider {
     public PersonInfo getPersonData() {
         // Mock - replace with your data provider / adapter
         // Immutable PersonInfo Builder for mapping your data
-        return this.personInfo = new PersonInfo.PersonBuilder("Jhon", "Doe")
+        return this.personInfo = new PersonInfo.PersonInfoBuilder("Jhon", "Doe")
                 .age(42)
                 .state(PersonStateEnum.ACTIVE)
                 .build();

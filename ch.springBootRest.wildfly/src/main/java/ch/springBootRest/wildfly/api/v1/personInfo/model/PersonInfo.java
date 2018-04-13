@@ -9,11 +9,11 @@ public class PersonInfo {
     private final int age;
     private final PersonStateEnum personStateEnum;
 
-    public PersonInfo(PersonBuilder personBuilder) {
-        this.firstName = personBuilder.firstName;
-        this.lastName = personBuilder.lastName;
-        this.age = personBuilder.age;
-        this.personStateEnum = personBuilder.personStateEnum;
+    public PersonInfo(PersonInfoBuilder personInfoBuilder) {
+        this.firstName = personInfoBuilder.firstName;
+        this.lastName = personInfoBuilder.lastName;
+        this.age = personInfoBuilder.age;
+        this.personStateEnum = personInfoBuilder.personStateEnum;
     }
 
     public String getFirstName() {
@@ -32,22 +32,23 @@ public class PersonInfo {
         return personStateEnum;
     }
 
-    public static class PersonBuilder implements Builder<PersonInfo> {
+    public static class PersonInfoBuilder implements Builder<PersonInfo> {
         private final String firstName;
         private final String lastName;
         private int age;
         private PersonStateEnum personStateEnum;
 
-        public PersonBuilder(String firstName, String lastName) {
+        public PersonInfoBuilder(String firstName, String lastName) {
             this.firstName = firstName;
             this.lastName = lastName;
         }
-        public PersonBuilder state(PersonStateEnum personStateEnum) {
+
+        public PersonInfoBuilder state(PersonStateEnum personStateEnum) {
             this.personStateEnum = personStateEnum;
             return this;
         }
 
-        public PersonBuilder age(int age) {
+        public PersonInfoBuilder age(int age) {
             this.age = age;
             return this;
         }
