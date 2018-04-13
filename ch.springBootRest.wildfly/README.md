@@ -1,6 +1,11 @@
 #Spring Boot with WildFly (JBoss)
 
 This is a basic EE setup to run SpringBoot without WildFly or with WildFly /JBoss.
+In this kata an attempt was made to develop a varinate, where from the legacy world into 
+the new world can be transferred.
+
+> legacy applications JBoss/Jsf === Cloud/reactjs)
+
 
 ##API Rest Endpoints:
 ```
