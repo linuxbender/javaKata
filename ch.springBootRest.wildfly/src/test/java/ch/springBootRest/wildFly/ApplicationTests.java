@@ -1,4 +1,4 @@
-package ch.springBootRest.ch.springBootRest.wildfly;
+package ch.springBootRest.wildFly;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

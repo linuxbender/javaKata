@@ -1,4 +1,4 @@
-package ch.springBootRest.ch.springBootRest.wildfly.api.v1.personInfo;
+package ch.springBootRest.wildfly.api.v1.personInfo;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +25,5 @@ public class PersonInfoController {
     public String actionFullPersonName() {
         return this.personInfoService.getPersonName();
     }
-
 
 }

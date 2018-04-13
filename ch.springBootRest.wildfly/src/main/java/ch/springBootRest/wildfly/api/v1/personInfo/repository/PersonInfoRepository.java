@@ -1,6 +1,6 @@
-package ch.springBootRest.ch.springBootRest.wildfly.api.v1.personInfo.repository;
+package ch.springBootRest.wildfly.api.v1.personInfo.repository;
 
-import ch.springBootRest.ch.springBootRest.wildfly.api.v1.personInfo.model.Person;
+import ch.springBootRest.wildfly.api.v1.personInfo.model.Person;
 import org.springframework.stereotype.Component;
 
 @Component

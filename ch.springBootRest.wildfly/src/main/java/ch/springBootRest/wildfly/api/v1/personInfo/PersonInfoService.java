@@ -1,6 +1,6 @@
-package ch.springBootRest.ch.springBootRest.wildfly.api.v1.personInfo;
+package ch.springBootRest.wildfly.api.v1.personInfo;
 
-import ch.springBootRest.ch.springBootRest.wildfly.api.v1.personInfo.repository.IPersonInfoRepository;
+import ch.springBootRest.wildfly.api.v1.personInfo.repository.IPersonInfoRepository;
 import org.springframework.stereotype.Service;
 
 @Service

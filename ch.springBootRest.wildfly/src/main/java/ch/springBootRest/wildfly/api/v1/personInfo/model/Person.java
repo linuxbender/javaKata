@@ -1,4 +1,4 @@
-package ch.springBootRest.ch.springBootRest.wildfly.api.v1.personInfo.model;
+package ch.springBootRest.wildfly.api.v1.personInfo.model;
 
 public class Person {
 
