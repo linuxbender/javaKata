@@ -5,6 +5,9 @@ This is a basic EE setup to run SpringBoot without WildFly or with WildFly /JBos
 ##API Rest Endpoints:
 > http://localhost:8080/api/v1/personinfo
 > http://localhost:8080/api/v1/personinfo/{personName}
+> http://localhost:8080/api/v1/personinfo/current-person-states
+> http://localhost:8080/api/v1/personinfo/person-states
+> http://localhost:8080/api/v1/personinfo/is-state-count-valid
 
 ## Run with Springboot
 > java -jar target/ch.springBootRest.wildfly-1.0.1-SNAPSHOT.war

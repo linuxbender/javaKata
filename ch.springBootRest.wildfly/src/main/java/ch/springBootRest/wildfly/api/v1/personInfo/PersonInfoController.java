@@ -1,6 +1,10 @@
 package ch.springBootRest.wildfly.api.v1.personInfo;
 
+import ch.springBootRest.wildfly.api.v1.personInfo.model.PersonStateEnum;
+import ch.springBootRest.wildfly.api.v1.personInfo.service.IPersonInfoService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/personinfo")
@@ -26,4 +30,18 @@ public class PersonInfoController {
         return this.personInfoService.getPersonName();
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/person-states")
+    public ArrayList<PersonStateEnum> actionPersonStates() {
+        return this.personInfoService.getPersonStateCode();
+    }
+
+    @RequestMapping(method = RequestMethod.GET,value = "/current-person-states")
+    public String actionCurrentPersonState() {
+        return this.personInfoService.isCurrentPersonActiv();
+    }
+
+    @RequestMapping(method = RequestMethod.GET,value = "/is-state-count-valid")
+    public boolean isStateCountValid(){
+        return this.personInfoService.isStateCountValid();
+    }
 }
