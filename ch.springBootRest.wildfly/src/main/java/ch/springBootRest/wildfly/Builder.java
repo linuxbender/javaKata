@@ -1,5 +1,5 @@
 package ch.springBootRest.wildfly;
 
-public interface IBuilder<T> {
+public interface Builder<T> {
     T build();
 }

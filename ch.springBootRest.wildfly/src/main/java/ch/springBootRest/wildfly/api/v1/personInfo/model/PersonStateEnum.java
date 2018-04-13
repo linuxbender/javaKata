@@ -1,8 +1,8 @@
 package ch.springBootRest.wildfly.api.v1.personInfo.model;
 
 public enum PersonStateEnum {
-    ACTIVE("Person is Active"),
-    INACTIVE("Person is Inactive");
+    ACTIVE("PersonInfo is Active"),
+    INACTIVE("PersonInfo is Inactive");
 
     private String personState;
 

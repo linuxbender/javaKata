@@ -1,7 +1,7 @@
 package ch.springBootRest.wildfly.api.v1.personInfo;
 
 import ch.springBootRest.wildfly.api.v1.personInfo.model.PersonStateEnum;
-import ch.springBootRest.wildfly.api.v1.personInfo.service.IPersonInfoService;
+import ch.springBootRest.wildfly.api.v1.personInfo.service.PersonInfoService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 @CrossOrigin(origins = "*")
 public class PersonInfoController {
 
-    private final IPersonInfoService personInfoService;
+    private final PersonInfoService personInfoService;
 
-    public PersonInfoController(IPersonInfoService personInfoService) {
+    public PersonInfoController(PersonInfoService personInfoService) {
         if (personInfoService == null) {
             throw new NullPointerException("personInfoService");
         }

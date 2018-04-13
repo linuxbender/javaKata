@@ -1,15 +1,15 @@
 package ch.springBootRest.wildfly.api.v1.personInfo.model;
 
-import ch.springBootRest.wildfly.IBuilder;
+import ch.springBootRest.wildfly.Builder;
 
-public class Person {
+public class PersonInfo {
 
     private final String firstName;
     private final String lastName;
     private final int age;
     private final PersonStateEnum personStateEnum;
 
-    public Person(PersonBuilder personBuilder) {
+    public PersonInfo(PersonBuilder personBuilder) {
         this.firstName = personBuilder.firstName;
         this.lastName = personBuilder.lastName;
         this.age = personBuilder.age;
@@ -32,7 +32,7 @@ public class Person {
         return personStateEnum;
     }
 
-    public static class PersonBuilder implements IBuilder<Person> {
+    public static class PersonBuilder implements Builder<PersonInfo> {
         private final String firstName;
         private final String lastName;
         private int age;
@@ -52,8 +52,8 @@ public class Person {
             return this;
         }
 
-        public Person build() {
-            return new Person(this);
+        public PersonInfo build() {
+            return new PersonInfo(this);
         }
     }
 }
