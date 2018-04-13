@@ -2,6 +2,7 @@ package ch.springBootRest.wildfly.api.v1.personInfo;
 
 import ch.springBootRest.wildfly.api.v1.personInfo.model.PersonStateEnum;
 import ch.springBootRest.wildfly.api.v1.personInfo.service.PersonInfoService;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,9 +15,7 @@ public class PersonInfoController {
     private final PersonInfoService personInfoService;
 
     public PersonInfoController(PersonInfoService personInfoService) {
-        if (personInfoService == null) {
-            throw new NullPointerException("personInfoService");
-        }
+        Assert.notNull(personInfoService, "personInfoService");
         this.personInfoService = personInfoService;
     }
 

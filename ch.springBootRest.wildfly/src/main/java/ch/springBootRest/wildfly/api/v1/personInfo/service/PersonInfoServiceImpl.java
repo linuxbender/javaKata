@@ -5,6 +5,7 @@ import ch.springBootRest.wildfly.api.v1.personInfo.model.PersonStateEnum;
 import ch.springBootRest.wildfly.api.v1.personInfo.provider.BaseDataProvider;
 import ch.springBootRest.wildfly.api.v1.personInfo.provider.PersonInfoProvider;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 
@@ -15,12 +16,10 @@ public class PersonInfoServiceImpl implements PersonInfoService {
     private final BaseDataProvider baseDataProvider;
 
     public PersonInfoServiceImpl(PersonInfoProvider personInfoProvider, BaseDataProvider baseDataProvider) {
-        if (personInfoProvider == null) {
-            throw new NullPointerException("personInfoProvider");
-        }
-        if (baseDataProvider == null) {
-            throw new NullPointerException("baseDataProvider");
-        }
+
+        Assert.notNull(personInfoProvider, "personInfoProvider");
+        Assert.notNull(baseDataProvider, "baseDataProvider");
+
         this.personInfoProvider = personInfoProvider;
         this.baseDataProvider = baseDataProvider;
     }
