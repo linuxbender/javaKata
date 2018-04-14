@@ -1,6 +1,6 @@
 package ch.springBootRest.wildfly.api.v1.personInfo.model;
 
-import ch.springBootRest.wildfly.Builder;
+import ch.springBootRest.wildfly.commen.Builder;
 
 public class PersonInfo {
 
