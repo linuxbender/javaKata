@@ -7,14 +7,16 @@ import org.springframework.web.filter.ShallowEtagHeaderFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import static ch.springBootRest.wildfly.commen.AppConstants.*;
+
 @Configuration
 public class AppConfigurer implements WebMvcConfigurer {
 
     @Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-        source.setBasenames("classpath:Messages");
-        source.setDefaultEncoding("UTF-8");
+        source.setBasenames(APP_DEFAULT_MESSAGE_BUNDEL_NAME);
+        source.setDefaultEncoding(APP_DEFAULT_ENCODING);
         return source;
     }
 
@@ -26,23 +28,23 @@ public class AppConfigurer implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
 
-        // TODO: extract string to enums
+        // TODO: extract string to constants
         registry.addMapping("/partner/**")
                 .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedHeaders("Accept-Language")
-                .allowCredentials(false).maxAge(3600);
+                .allowedHeaders("Accept-Language", "ETag")
+                .allowCredentials(false).maxAge(APP_CREDENTIALS_MAX_AGE);
 
         registry.addMapping("/partnerinfo/**")
                 .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
                 .allowedHeaders("Accept-Language", "ETag")
-                .allowCredentials(false).maxAge(3600);
+                .allowCredentials(false).maxAge(APP_CREDENTIALS_MAX_AGE);
 
         registry.addMapping("/translation/**")
                 .allowedOrigins("*")
                 .allowedMethods("GET")
                 .allowedHeaders("Accept-Language", "ETag")
-                .allowCredentials(false).maxAge(3600);
+                .allowCredentials(false).maxAge(APP_CREDENTIALS_MAX_AGE);
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.util.Assert;
 
 import java.util.*;
 
+import static ch.springBootRest.wildfly.commen.AppConstants.APP_DEFAULT_MESSAGE_BUNDEL_NAME;
+
 @Component
 public class TranslationProviderImpl implements TranslationProvider {
 
@@ -20,7 +22,7 @@ public class TranslationProviderImpl implements TranslationProvider {
         Assert.notNull(messageSource, "messageSource");
 
         this.messageSource = messageSource;
-        setBundleName("messages");
+        setBundleName(APP_DEFAULT_MESSAGE_BUNDEL_NAME);
     }
 
     public String getBundleName() {
@@ -38,7 +40,7 @@ public class TranslationProviderImpl implements TranslationProvider {
                 TranslationDtoBuilder(translationKey, null).build();
         try {
             String message = this.messageSource.getMessage(translationKey, arg, getLocale());
-            translationDto = new TranslationDto.TranslationDtoBuilder(translationKey, message).build();
+            return new TranslationDto.TranslationDtoBuilder(translationKey, message).build();
         } catch (NoSuchMessageException e) {
             // todo spring boot exception handling
         }
