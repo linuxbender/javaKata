@@ -1,14 +1,16 @@
 package ch.springBootRest.wildfly.api.v1.translation.provider;
+
+import ch.springBootRest.wildfly.api.v1.translation.dto.TranslationDto;
 import org.springframework.lang.Nullable;
 
+import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 public interface TranslationService {
 
-    String getTranslation(String translationKey,@Nullable String... replaceArgs);
+    TranslationDto getTranslation(String translationKey, @Nullable String... replaceArgs);
 
     Locale getLocale();
 
-    Map<String, String> getFullTranslation();
+    List<TranslationDto> getFullTranslation();
 }

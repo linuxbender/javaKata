@@ -1,5 +1,6 @@
 package ch.springBootRest.wildfly.api.v1.translation.provider;
 
+import ch.springBootRest.wildfly.api.v1.translation.dto.TranslationDto;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -31,13 +32,16 @@ public class TranslationServiceImpl implements TranslationService {
     }
 
     @Override
-    public String getTranslation(String translationKey, @Nullable String... arg) {
-        try{
-            return this.messageSource.getMessage(translationKey, arg, getLocale());
-        } catch (NoSuchMessageException e){
-
+    public TranslationDto getTranslation(String translationKey, @Nullable String... arg) {
+        TranslationDto translationDto = new TranslationDto.
+                TranslationDtoBuilder(translationKey, null).build();
+        try {
+            String message = this.messageSource.getMessage(translationKey, arg, getLocale());
+            translationDto = new TranslationDto.TranslationDtoBuilder(translationKey, message).build();
+        } catch (NoSuchMessageException e) {
+            // todo spring boot exception handling
         }
-        return "";
+        return translationDto;
     }
 
     @Override
@@ -46,18 +50,25 @@ public class TranslationServiceImpl implements TranslationService {
     }
 
     @Override
-    public Map<String, String> getFullTranslation() {
-        ResourceBundle bundle = ResourceBundle.getBundle(getBundleName(), getLocale());
-        return convertToMap(bundle);
+    public List<TranslationDto> getFullTranslation() {
+        ResourceBundle bundle = null;
+        try {
+            bundle = ResourceBundle.getBundle(getBundleName(), getLocale());
+        } catch (MissingResourceException e) {
+            // todo spring boot exception handling
+        }
+        return convertToList(bundle);
     }
 
-    private Map<String, String> convertToMap(ResourceBundle resource) {
-        Map<String, String> map = new HashMap<>();
-        Enumeration<String> keys = resource.getKeys();
-        while (keys.hasMoreElements()) {
-            String key = keys.nextElement();
-            map.put(key, resource.getString(key));
+    private List<TranslationDto> convertToList(ResourceBundle resource) {
+        List<TranslationDto> translationList = new ArrayList<>();
+        if (resource != null) {
+            Enumeration<String> resourceKeys = resource.getKeys();
+            while (resourceKeys.hasMoreElements()) {
+                String key = resourceKeys.nextElement();
+                translationList.add(new TranslationDto.TranslationDtoBuilder(key, resource.getString(key)).build());
+            }
         }
-        return map;
+        return translationList;
     }
 }
