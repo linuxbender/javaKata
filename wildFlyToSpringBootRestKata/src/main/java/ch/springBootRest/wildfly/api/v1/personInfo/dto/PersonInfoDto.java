@@ -1,19 +1,19 @@
-package ch.springBootRest.wildfly.api.v1.personInfo.model;
+package ch.springBootRest.wildfly.api.v1.personInfo.dto;
 
 import ch.springBootRest.wildfly.commen.Builder;
 
-public class PersonInfo {
+public class PersonInfoDto {
 
     private final String firstName;
     private final String lastName;
     private final int age;
-    private final PersonStateEnum personStateEnum;
+    private final PersonStateEnumDto personStateEnumDto;
 
-    public PersonInfo(PersonInfoBuilder personInfoBuilder) {
+    public PersonInfoDto(PersonInfoBuilder personInfoBuilder) {
         this.firstName = personInfoBuilder.firstName;
         this.lastName = personInfoBuilder.lastName;
         this.age = personInfoBuilder.age;
-        this.personStateEnum = personInfoBuilder.personStateEnum;
+        this.personStateEnumDto = personInfoBuilder.personStateEnumDto;
     }
 
     public String getFirstName() {
@@ -28,23 +28,23 @@ public class PersonInfo {
         return age;
     }
 
-    public PersonStateEnum getPersonStateEnum() {
-        return personStateEnum;
+    public PersonStateEnumDto getPersonStateEnumDto() {
+        return personStateEnumDto;
     }
 
-    public static class PersonInfoBuilder implements Builder<PersonInfo> {
+    public static class PersonInfoBuilder implements Builder<PersonInfoDto> {
         private final String firstName;
         private final String lastName;
         private int age;
-        private PersonStateEnum personStateEnum;
+        private PersonStateEnumDto personStateEnumDto;
 
         public PersonInfoBuilder(String firstName, String lastName) {
             this.firstName = firstName;
             this.lastName = lastName;
         }
 
-        public PersonInfoBuilder state(PersonStateEnum personStateEnum) {
-            this.personStateEnum = personStateEnum;
+        public PersonInfoBuilder state(PersonStateEnumDto personStateEnumDto) {
+            this.personStateEnumDto = personStateEnumDto;
             return this;
         }
 
@@ -53,8 +53,8 @@ public class PersonInfo {
             return this;
         }
 
-        public PersonInfo build() {
-            return new PersonInfo(this);
+        public PersonInfoDto build() {
+            return new PersonInfoDto(this);
         }
     }
 }

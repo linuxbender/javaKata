@@ -1,32 +1,32 @@
 package ch.springBootRest.wildfly.api.v1.personInfo.provider;
 
-import ch.springBootRest.wildfly.api.v1.personInfo.model.PersonInfo;
-import ch.springBootRest.wildfly.api.v1.personInfo.model.PersonStateEnum;
+import ch.springBootRest.wildfly.api.v1.personInfo.dto.PersonInfoDto;
+import ch.springBootRest.wildfly.api.v1.personInfo.dto.PersonStateEnumDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PersonInfoProviderImpl implements PersonInfoProvider {
 
-    private PersonInfo personInfo;
+    private PersonInfoDto personInfoDto;
 
     // Inject your data provider / adapter to replace the current mock
     public PersonInfoProviderImpl() {
-        this.personInfo = this.getPersonData();
+        this.personInfoDto = this.getPersonData();
     }
 
     @Override
-    public PersonInfo getPersonData() {
+    public PersonInfoDto getPersonData() {
         // Mock - replace with your data provider / adapter
-        // Immutable PersonInfo Builder for mapping your data
-        return this.personInfo = new PersonInfo.PersonInfoBuilder("Jhon", "Doe")
+        // Immutable PersonInfoDto Builder for mapping your data
+        return this.personInfoDto = new PersonInfoDto.PersonInfoBuilder("Jhon", "Doe")
                 .age(42)
-                .state(PersonStateEnum.ACTIVE)
+                .state(PersonStateEnumDto.ACTIVE)
                 .build();
     }
 
     @Override
     public String getPersonName() {
         // call the context
-        return String.format("%s %s %s", this.personInfo.getFirstName(), this.personInfo.getLastName(), this.personInfo.getAge());
+        return String.format("%s %s %s", this.personInfoDto.getFirstName(), this.personInfoDto.getLastName(), this.personInfoDto.getAge());
     }
 }

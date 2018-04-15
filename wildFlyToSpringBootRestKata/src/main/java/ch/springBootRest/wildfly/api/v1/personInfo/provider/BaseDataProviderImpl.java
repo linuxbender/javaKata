@@ -1,6 +1,6 @@
 package ch.springBootRest.wildfly.api.v1.personInfo.provider;
 
-import ch.springBootRest.wildfly.api.v1.personInfo.model.PersonStateEnum;
+import ch.springBootRest.wildfly.api.v1.personInfo.dto.PersonStateEnumDto;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -8,22 +8,22 @@ import java.util.ArrayList;
 @Component
 public class BaseDataProviderImpl implements BaseDataProvider {
 
-    private ArrayList<PersonStateEnum> personStateEnumArrayList;
+    private ArrayList<PersonStateEnumDto> personStateEnumArrayListDto;
 
     // Inject your data provider / adapter to replace the current mock
     public BaseDataProviderImpl() {
-        this.personStateEnumArrayList = new ArrayList<>();
-        personStateEnumArrayList.add(PersonStateEnum.ACTIVE);
-        personStateEnumArrayList.add(PersonStateEnum.INACTIVE);
+        this.personStateEnumArrayListDto = new ArrayList<>();
+        personStateEnumArrayListDto.add(PersonStateEnumDto.ACTIVE);
+        personStateEnumArrayListDto.add(PersonStateEnumDto.INACTIVE);
     }
 
     @Override
-    public ArrayList<PersonStateEnum> getPersonStateCode() {
-        return this.personStateEnumArrayList;
+    public ArrayList<PersonStateEnumDto> getPersonStateCode() {
+        return this.personStateEnumArrayListDto;
     }
 
     @Override
     public int getStateCount() {
-        return this.personStateEnumArrayList.size();
+        return this.personStateEnumArrayListDto.size();
     }
 }
