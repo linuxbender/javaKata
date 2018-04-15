@@ -5,18 +5,18 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import java.util.*;
 
-@Service
-public class TranslationServiceImpl implements TranslationService {
+@Component
+public class TranslationProviderImpl implements TranslationProvider {
 
     private final MessageSource messageSource;
     private String bundleName;
 
-    public TranslationServiceImpl(MessageSource messageSource) {
+    public TranslationProviderImpl(MessageSource messageSource) {
         Assert.notNull(messageSource, "messageSource");
         this.messageSource = messageSource;
         setBundleName("i18n/app");
