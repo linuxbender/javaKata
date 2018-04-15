@@ -1,7 +1,7 @@
 package ch.springBootRest.wildfly.api.v1.personInfo.service;
 
 import ch.springBootRest.wildfly.api.v1.personInfo.dto.PersonInfoDto;
-import ch.springBootRest.wildfly.api.v1.personInfo.dto.PersonStateEnumDto;
+import ch.springBootRest.wildfly.api.v1.personInfo.dto.PersonStateEnum;
 import ch.springBootRest.wildfly.api.v1.personInfo.provider.BaseDataProvider;
 import ch.springBootRest.wildfly.api.v1.personInfo.provider.PersonInfoProvider;
 import org.springframework.stereotype.Service;
@@ -30,14 +30,14 @@ public class PersonInfoServiceImpl implements PersonInfoService {
     }
 
     @Override
-    public ArrayList<PersonStateEnumDto> getPersonStateCode() {
+    public ArrayList<PersonStateEnum> getPersonStateCode() {
         return this.baseDataProvider.getPersonStateCode();
     }
 
     @Override
     public String isCurrentPersonActiv() {
         PersonInfoDto currentPersonInfoDto = this.personInfoProvider.getPersonData();
-        return currentPersonInfoDto.getPersonStateEnumDto() == PersonStateEnumDto.ACTIVE ? PersonStateEnumDto.ACTIVE.state() : PersonStateEnumDto.INACTIVE.state();
+        return currentPersonInfoDto.getPersonStateEnum() == PersonStateEnum.ACTIVE ? PersonStateEnum.ACTIVE.state() : PersonStateEnum.INACTIVE.state();
     }
 
     @Override

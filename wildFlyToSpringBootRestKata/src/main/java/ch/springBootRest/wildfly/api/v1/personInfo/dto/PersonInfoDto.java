@@ -7,13 +7,13 @@ public class PersonInfoDto {
     private final String firstName;
     private final String lastName;
     private final int age;
-    private final PersonStateEnumDto personStateEnumDto;
+    private final PersonStateEnum personStateEnum;
 
     public PersonInfoDto(PersonInfoBuilder personInfoBuilder) {
         this.firstName = personInfoBuilder.firstName;
         this.lastName = personInfoBuilder.lastName;
         this.age = personInfoBuilder.age;
-        this.personStateEnumDto = personInfoBuilder.personStateEnumDto;
+        this.personStateEnum = personInfoBuilder.personStateEnum;
     }
 
     public String getFirstName() {
@@ -28,23 +28,23 @@ public class PersonInfoDto {
         return age;
     }
 
-    public PersonStateEnumDto getPersonStateEnumDto() {
-        return personStateEnumDto;
+    public PersonStateEnum getPersonStateEnum() {
+        return personStateEnum;
     }
 
     public static class PersonInfoBuilder implements Builder<PersonInfoDto> {
         private final String firstName;
         private final String lastName;
         private int age;
-        private PersonStateEnumDto personStateEnumDto;
+        private PersonStateEnum personStateEnum;
 
         public PersonInfoBuilder(String firstName, String lastName) {
             this.firstName = firstName;
             this.lastName = lastName;
         }
 
-        public PersonInfoBuilder state(PersonStateEnumDto personStateEnumDto) {
-            this.personStateEnumDto = personStateEnumDto;
+        public PersonInfoBuilder state(PersonStateEnum personStateEnum) {
+            this.personStateEnum = personStateEnum;
             return this;
         }
 

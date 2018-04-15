@@ -1,13 +1,13 @@
 package ch.springBootRest.wildfly.api.v1.personInfo.service;
 
-import ch.springBootRest.wildfly.api.v1.personInfo.dto.PersonStateEnumDto;
+import ch.springBootRest.wildfly.api.v1.personInfo.dto.PersonStateEnum;
 
 import java.util.ArrayList;
 
 public interface PersonInfoService {
     String getPersonName();
 
-    ArrayList<PersonStateEnumDto> getPersonStateCode();
+    ArrayList<PersonStateEnum> getPersonStateCode();
     String isCurrentPersonActiv();
     boolean isStateCountValid();
 }

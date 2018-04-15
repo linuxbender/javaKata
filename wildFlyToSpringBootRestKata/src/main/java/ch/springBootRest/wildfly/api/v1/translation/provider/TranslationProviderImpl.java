@@ -18,8 +18,9 @@ public class TranslationProviderImpl implements TranslationProvider {
 
     public TranslationProviderImpl(MessageSource messageSource) {
         Assert.notNull(messageSource, "messageSource");
+
         this.messageSource = messageSource;
-        setBundleName("i18n/app");
+        setBundleName("messages");
     }
 
     public String getBundleName() {

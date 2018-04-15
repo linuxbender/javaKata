@@ -1,7 +1,7 @@
 package ch.springBootRest.wildfly.api.v1.personInfo.provider;
 
 import ch.springBootRest.wildfly.api.v1.personInfo.dto.PersonInfoDto;
-import ch.springBootRest.wildfly.api.v1.personInfo.dto.PersonStateEnumDto;
+import ch.springBootRest.wildfly.api.v1.personInfo.dto.PersonStateEnum;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,7 +20,7 @@ public class PersonInfoProviderImpl implements PersonInfoProvider {
         // Immutable PersonInfoDto Builder for mapping your data
         return this.personInfoDto = new PersonInfoDto.PersonInfoBuilder("Jhon", "Doe")
                 .age(42)
-                .state(PersonStateEnumDto.ACTIVE)
+                .state(PersonStateEnum.ACTIVE)
                 .build();
     }
 
