@@ -6,20 +6,14 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.support.GenericApplicationContext;
 
-import java.util.function.Supplier;
-
-@Configuration
-@ComponentScan
+@SpringBootApplication
 public class Config101Application {
 
-    @Component
     public static class MyBDRPP implements BeanDefinitionRegistryPostProcessor {
 
         @Override
@@ -42,9 +36,17 @@ public class Config101Application {
     }
 
 	public static void main(String[] args) {
-		//SpringApplication.run(Config101Application.class, args);
-		ApplicationContext ac = new AnnotationConfigApplicationContext(Config101Application.class);
+		SpringApplication.run(Config101Application.class, args);
 	}
+}
+
+class ProgrammaticBeanDefinitionInitializr implements ApplicationContextInitializer<GenericApplicationContext> {
+
+    @Override
+    public void initialize(GenericApplicationContext applicationContext) {
+        applicationContext.registerBean(BaaService.class);
+        applicationContext.registerBean(FooService.class, () -> new FooService(applicationContext.getBean(BaaService.class)));
+    }
 }
 
 class FooService {
