@@ -31,8 +31,8 @@ run your server
 
 >SpringBoot
 
-![alt text](img/Ide-SpringBoot-Config.JPG)
+![alt text](img/Ide-SpringBoot-Config.jpg)
 
 >WildFly
 
-![alt text](img/Ide-WildFly-Config.JPG)
+![alt text](img/Ide-WildFly-Config.jpg)
