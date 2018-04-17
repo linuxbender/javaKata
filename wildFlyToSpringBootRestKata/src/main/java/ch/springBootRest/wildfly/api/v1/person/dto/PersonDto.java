@@ -44,11 +44,10 @@ public class PersonDto {
         public PersonBuilder(@Nullable Long id, @Nullable String firstName, @Nullable String lastName) {
             this.id = id;
             this.firstName = firstName != null ? firstName : "";
-            ;
             this.lastName = lastName != null ? lastName : "";
-            ;
         }
 
+        @Override
         public PersonDto build() {
             return new PersonDto(this);
         }

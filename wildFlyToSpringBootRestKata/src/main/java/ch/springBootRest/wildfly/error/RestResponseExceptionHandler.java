@@ -23,7 +23,7 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
     private ErrorMessage processArgumentNotValidException(final MethodArgumentNotValidException ex) {
 
         Map.Entry<String, Object> dtoModel = ex.getBindingResult().getModel().entrySet().stream().findFirst().get();
-        Dto dto = new Dto(dtoModel.getKey(), dtoModel.getValue());
+        Dto dto = new Dto.DtoBuilder(dtoModel.getKey(), dtoModel.getValue()).build();
 
         ErrorMessage errorMessage = new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ErrorTypeEnum.ERROR_TYPE_BUSINESS_EXECTION.getErrorType(), dto);
 
