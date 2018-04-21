@@ -7,6 +7,11 @@ import lombok.extern.java.Log;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Reference;
@@ -14,6 +19,7 @@ import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoResults;
 import org.springframework.data.geo.Point;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisGeoCommands;
@@ -24,12 +30,16 @@ import org.springframework.data.redis.core.index.Indexed;
 import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.*;
 
 @Log
+@EnableCaching
 @SpringBootApplication
 public class SpringRedisApplication {
 
@@ -78,6 +88,13 @@ public class SpringRedisApplication {
         return Math.max(newId, newId * -1);
     }
 
+    @Bean
+    CacheManager redisCacheManager(RedisConnectionFactory rf) {
+        return RedisCacheManager
+                .builder(rf)
+                .build();
+    }
+
     public static final String TOBIC = "chat";
 
     @Bean
@@ -85,6 +102,7 @@ public class SpringRedisApplication {
         return titleRunner("publish/subscribe", args -> {
             rt.convertAndSend(TOBIC, "Hello World " + Instant.now().toString());
         });
+
     }
 
     @Bean
@@ -101,8 +119,56 @@ public class SpringRedisApplication {
         return mlc;
     }
 
+    private long measure(Runnable r) {
+        long start = System.currentTimeMillis();
+        r.run();
+        long stop = System.currentTimeMillis();
+        return stop - start;
+    }
+
+    @Bean
+    ApplicationRunner redisCache(OrderService orderService) {
+        return titleRunner("caching", args -> {
+            Runnable measure = () -> orderService.byId(1L);
+            log.info("first " + measure(measure));
+            log.info("two " + measure(measure));
+            log.info("three " + measure(measure));
+        });
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(SpringRedisApplication.class, args);
+    }
+}
+
+@Log
+@Service
+class OrderService {
+
+    @Resource
+    private OrderRepository orderRepository;
+
+
+    @Cacheable(value = "order-by-id")
+    @Transactional
+    public Order byId(Long id) {
+        try {
+            Thread.sleep(1000 * 5);
+        } catch (Throwable throwable) {
+            throw new RuntimeException(throwable);
+        }
+        return new Order(id, new Date(), Collections.emptyList());
+    }
+
+    @CacheEvict(value = "order-by-id")
+    public void chancelAll() {
+        log.info("clear cache");
+    }
+
+    @CachePut(value = "order-by-id")
+    @Transactional
+    public void saveOrder(Order newOrder) {
+        orderRepository.save(newOrder);
     }
 }
 
