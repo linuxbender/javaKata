@@ -14,14 +14,19 @@ import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoResults;
 import org.springframework.data.geo.Point;
+import org.springframework.data.redis.connection.MessageListener;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisGeoCommands;
 import org.springframework.data.redis.core.GeoOperations;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.index.Indexed;
+import org.springframework.data.redis.listener.PatternTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.repository.CrudRepository;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.*;
 
 @Log
@@ -73,6 +78,29 @@ public class SpringRedisApplication {
         return Math.max(newId, newId * -1);
     }
 
+    public static final String TOBIC = "chat";
+
+    @Bean
+    ApplicationRunner pubSub(RedisTemplate<String, String> rt) {
+        return titleRunner("publish/subscribe", args -> {
+            rt.convertAndSend(TOBIC, "Hello World " + Instant.now().toString());
+        });
+    }
+
+    @Bean
+    RedisMessageListenerContainer messageListenerContainer(RedisConnectionFactory cf) {
+
+        MessageListener ml = (message, pattern) -> {
+            String msg = new String(message.getBody());
+            log.info("message from: " + TOBIC + ": " + msg);
+        };
+
+        RedisMessageListenerContainer mlc = new RedisMessageListenerContainer();
+        mlc.setConnectionFactory(cf);
+        mlc.addMessageListener(ml, new PatternTopic(TOBIC));
+        return mlc;
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(SpringRedisApplication.class, args);
     }
@@ -115,4 +143,3 @@ class LineItem implements Serializable {
 
     private String description;
 }
-
